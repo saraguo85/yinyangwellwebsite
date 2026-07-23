@@ -173,7 +173,7 @@ footer{padding:58px 0 42px;border-top:1px solid var(--line);background:var(--cre
 .ft-col h4{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 .ft-col a{display:block;font-size:14.5px;color:var(--ink);margin-bottom:8px;opacity:.8}
 .ft-col a:hover{opacity:1}
-.disclaimer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:22px;max-width:64em}
+.disclaimer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:22px}
 
 /* PAGE HERO (inner pages) */
 .page-hero{padding:74px 0 46px;background:radial-gradient(900px 340px at 82% -20%,#F2EFEA,transparent 60%),var(--white)}
@@ -243,3 +243,15 @@ footer{padding:58px 0 42px;border-top:1px solid var(--line);background:var(--cre
 .svc.feature .pill{color:#fff;background:var(--terracotta)}
 @media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.svc-grid{grid-template-columns:1fr}}
+
+/* ---------- Fillout intake modal ---------- */
+.fo-overlay{position:fixed;inset:0;z-index:100;background:rgba(46,42,36,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .25s;pointer-events:none}
+.fo-overlay.open{opacity:1;pointer-events:auto}
+.fo-modal{position:relative;width:min(720px,100%);height:min(780px,92vh);background:var(--cream);border:1px solid var(--line);border-radius:18px;box-shadow:0 40px 90px -30px rgba(46,42,36,.5);overflow:hidden;transform:translateY(14px);transition:transform .25s}
+.fo-overlay.open .fo-modal{transform:none}
+.fo-modal iframe{width:100%;height:100%;border:0;display:block}
+.fo-close{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--muted);font-size:18px;line-height:1;cursor:pointer;transition:color .15s}
+.fo-close:hover{color:var(--ink)}
+body.fo-lock{overflow:hidden}
+.svc .more-link{display:block;margin-top:10px;font-size:13.5px;color:var(--muted)}
+.svc .more-link:hover{color:var(--terracotta)}
