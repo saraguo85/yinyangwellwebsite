@@ -109,7 +109,7 @@ section.block{padding:88px 0}
 .guarantee b{color:var(--ink)}
 .guarantee .seal{width:34px;height:34px;border-radius:50%;background:var(--sage);flex:none}
 
-/* DOCTORS (lightened — cream cards, not dark) */
+/* DOCTORS (lightened: cream cards, not dark) */
 .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
 .doc{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:28px;text-align:center}
 .doc .av{width:88px;height:88px;border-radius:50%;background:linear-gradient(140deg,#E1DBD1,#C3C8BA);margin:0 auto 16px}
@@ -236,9 +236,9 @@ footer{padding:58px 0 42px;border-top:1px solid var(--line);background:var(--cre
 .svc p{color:var(--muted);font-size:14.5px;line-height:1.65;margin-bottom:22px;flex:1 1 auto}
 .svc .more{margin-top:auto;align-self:flex-start;color:var(--terracotta);font-weight:600;font-size:14.5px;transition:.2s}
 .svc:hover .more{color:var(--terracotta-deep);letter-spacing:.01em}
-/* first card "Most popular" — soft terracotta accent */
+/* first card "Most popular": soft terracotta accent */
 .svc-grid .svc:first-child .pill{color:var(--terracotta-deep);background:#F6E7DF}
-/* featured "Best value" card — the standout */
+/* featured "Best value" card: the standout */
 .svc.feature{border:1.5px solid var(--terracotta);background:linear-gradient(170deg,#FDF7F3,var(--white) 60%);box-shadow:0 24px 60px -40px rgba(120,80,40,.45)}
 .svc.feature .pill{color:#fff;background:var(--terracotta)}
 @media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
