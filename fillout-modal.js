@@ -21,21 +21,43 @@
 
   // Hides the loading state once the embed iframe has finished loading. The embed script
   // injects the iframe asynchronously, so watch for it rather than assuming it is there.
+  //
+  // Attaching a 'load' listener is not enough on its own: the iframe can finish loading
+  // between being inserted and the MutationObserver callback running, and 'load' does not
+  // fire again for a document that is already complete -- the spinner would then turn
+  // forever. So check the readyState too, and keep a timeout backstop so a slow or blocked
+  // embed still surrenders the spinner instead of looking broken (reported 2026-07-29: a
+  // CTA spinning 20+ seconds).
   function trackReady() {
     var modal = overlay.querySelector('.fo-modal');
-    function ready() { overlay.classList.add('fo-ready'); }
+    var done = false;
+    function ready() {
+      if (done) return;
+      done = true;
+      overlay.classList.add('fo-ready');
+    }
+    function watch(f) {
+      f.addEventListener('load', ready);
+      // already finished before we got here?
+      try {
+        if (f.contentDocument && f.contentDocument.readyState === 'complete') ready();
+      } catch (e) {
+        // cross-origin once the embed navigates -- which itself means it has started
+      }
+    }
     var existing = modal.querySelector('iframe');
     if (existing) {
-      existing.addEventListener('load', ready);
-      return;
+      watch(existing);
+    } else {
+      var mo = new MutationObserver(function () {
+        var f = modal.querySelector('iframe');
+        if (!f) return;
+        mo.disconnect();
+        watch(f);
+      });
+      mo.observe(modal, { childList: true, subtree: true });
     }
-    var mo = new MutationObserver(function () {
-      var f = modal.querySelector('iframe');
-      if (!f) return;
-      mo.disconnect();
-      f.addEventListener('load', ready);
-    });
-    mo.observe(modal, { childList: true, subtree: true });
+    setTimeout(ready, 12000);
   }
 
   // Creates the overlay and starts loading the form. Safe to call more than once.
