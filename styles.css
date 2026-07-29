@@ -252,6 +252,11 @@ footer{padding:58px 0 42px;border-top:1px solid var(--line);background:var(--cre
 .fo-modal iframe{width:100%;height:100%;border:0;display:block}
 .fo-close{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--muted);font-size:18px;line-height:1;cursor:pointer;transition:color .15s}
 .fo-close:hover{color:var(--ink)}
+/* "Start fresh": Fillout silently restores this device's last session, so after a
+   purchase the form reopens on the finished page. Buying a second one (a partner,
+   a parent) has no way out without this. */
+.fo-fresh{position:absolute;top:10px;left:10px;z-index:2;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--white);color:var(--muted);font-family:inherit;font-size:13px;font-weight:600;line-height:1;cursor:pointer;transition:color .15s,border-color .15s}
+.fo-fresh:hover{color:var(--terracotta);border-color:var(--terracotta)}
 body.fo-lock{overflow:hidden}
 /* Loading state: the embed pulls a lot of JS, so never show an empty modal. */
 .fo-frame{width:100%;height:100%}

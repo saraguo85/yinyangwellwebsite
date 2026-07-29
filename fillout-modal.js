@@ -71,6 +71,7 @@
     overlay.innerHTML =
       '<div class="fo-modal" role="dialog" aria-modal="true" aria-label="TCM Wellness Report intake">' +
       '<button class="fo-close" aria-label="Close">×</button>' +
+      '<button class="fo-fresh" type="button">Start fresh</button>' +
       '<div class="fo-loading" aria-live="polite"><span class="fo-spin"></span>Loading your assessment…</div>' +
       '<div class="fo-frame" data-fillout-id="' + FORM_ID + '" data-fillout-embed-type="standard" data-fillout-inherit-parameters></div>' +
       '</div>';
@@ -81,6 +82,7 @@
 
     overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
     overlay.querySelector('.fo-close').addEventListener('click', close);
+    overlay.querySelector('.fo-fresh').addEventListener('click', freshStart);
 
     trackReady();
 
@@ -88,6 +90,21 @@
     var s = document.createElement('script');
     s.src = EMBED_SRC;
     document.body.appendChild(s);
+  }
+
+  // Fillout keeps one saved session per form PER QUERY STRING, on its own origin --
+  // verified 2026-07-29 by reading __fillout_live_session_metadata_… inside the embed,
+  // which held separate entries under "" and "?fresh=1785140394635". Our page cannot
+  // clear that storage (cross-origin), but giving the embed a query string it has never
+  // seen starts a genuinely blank session. The value must be minted at click time: a
+  // hardcoded one would itself become a saved session and stick after its first use.
+  function freshStart() {
+    var f = overlay.querySelector('iframe');
+    if (!f) return;
+    if (!window.confirm('Start a fresh form?\n\nAnything already filled in on this device will be cleared. Use this when you are filling it in for someone else.')) return;
+    overlay.classList.remove('fo-ready');
+    f.src = f.src.split(/[?&]fresh=/)[0] + '&fresh=' + Date.now();
+    trackReady();
   }
 
   function open() {
